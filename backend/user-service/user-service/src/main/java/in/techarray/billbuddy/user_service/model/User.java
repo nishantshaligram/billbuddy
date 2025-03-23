@@ -21,7 +21,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class User extends BaseModel {
 
-    private String name;
     @Column( nullable=false, unique = true)
     private String email;
     @Column( nullable=false )
