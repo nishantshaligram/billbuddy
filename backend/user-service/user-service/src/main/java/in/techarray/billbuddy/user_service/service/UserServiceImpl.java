@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import in.techarray.billbuddy.user_service.dto.UserRequestDTO;
+import in.techarray.billbuddy.user_service.exception.ValidationException;
 import in.techarray.billbuddy.user_service.model.User;
 import in.techarray.billbuddy.user_service.repository.UserRepository;
 
@@ -23,9 +24,9 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User registerUser(UserRequestDTO userRequestDTO) {
+    public User registerUser(UserRequestDTO userRequestDTO) throws ValidationException {
         if( userRepository.findByEmail(userRequestDTO.getEmail()).isPresent()){
-            throw new RuntimeException("User with email already exists");
+            throw new ValidationException("User with email already exists");
         }
 
         User user = new User();
