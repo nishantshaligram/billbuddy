@@ -1,14 +1,11 @@
 package in.techarray.billbuddy.user_service.security;
 
-
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.config.annotation.rsocket.RSocketSecurity.JwtSpec;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import javax.crypto.SecretKey;
 
 import io.jsonwebtoken.*;
@@ -39,29 +36,20 @@ public class JwtUtil {
      * @return the generated JWT as a String
      */
     public String generateToken(String username) {
-        Jwts.builder()
-        .subject(username)
-        .issuedAt(new Date())
-        .expiration( new Date( System.currentTimeMillis() + jwtExpiration) )
-        .signWith( secretKey, Jwts.SIG.HS256 )
-        .compact();
-        return "";
+        return Jwts.builder()
+            .subject(username)
+            .issuedAt(new Date())
+            .expiration( new Date( System.currentTimeMillis() + jwtExpiration) )
+            .signWith( secretKey, Jwts.SIG.HS256 )
+            .compact();
     }
 
     public boolean validateToken( String token ) {
         try {
-            Jwts.parser().build().parseSignedClaims(token);
+            Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
             return true;
-        } catch (SecurityException e) {
-            System.out.println("Invalid JWT signature: " + e.getMessage());
-        } catch (MalformedJwtException e) {
-            System.out.println("Invalid JWT token: " + e.getMessage());
-        } catch (ExpiredJwtException e) {
-            System.out.println("JWT token is expired: " + e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            System.out.println("JWT token is unsupported: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("JWT claims string is empty: " + e.getMessage());
+        } catch (JwtException  e) {
+            System.out.println("Invalid JWT: " + e.getMessage());
         }
         return false;
     }
@@ -75,7 +63,8 @@ public class JwtUtil {
      * @return the extracted claim of type T
      */
     private <T> T extractClaim( String token, Function<Claims, T> claimsResolver ) {
-        final Claims claims = Jwts.parser().build().parseSignedClaims(token).getPayload();
+        final Claims claims = Jwts.parser().verifyWith(secretKey).build()
+            .parseSignedClaims(token).getPayload();
         return claimsResolver.apply(claims);
     }
 

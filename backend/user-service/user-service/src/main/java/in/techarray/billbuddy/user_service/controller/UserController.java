@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping( "api/users" )
+@RequestMapping( "/api/users" )
 public class UserController {
     private final UserService userService;
 
@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody UserRequestDTO userRequestDTO) throws ValidationException {
         User registeredUser = userService.registerUser(userRequestDTO);
         return ResponseEntity.ok(registeredUser);
