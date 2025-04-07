@@ -1,33 +1,21 @@
 package in.techarray.billbuddy.user_service.model;
 
-import java.util.Collection;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import io.jsonwebtoken.lang.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.ManyToMany;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name ="users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class User extends BaseModel implements UserDetails {
-
+public class User extends BaseModel {
     @Column( nullable=false, unique = true)
-    private String username;
+    private String email;
     @Column( nullable=false )
     private String password;
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
-    }
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 }
