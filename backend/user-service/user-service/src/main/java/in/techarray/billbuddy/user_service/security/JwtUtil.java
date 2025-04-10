@@ -10,7 +10,6 @@ import javax.crypto.SecretKey;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecurityException;
 
 import java.util.Date;
 import java.util.function.Function;
