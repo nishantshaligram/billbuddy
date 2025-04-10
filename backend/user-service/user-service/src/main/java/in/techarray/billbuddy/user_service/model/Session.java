@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Session {
+public class Session extends BaseModel{
     private String token;
     private Date expiringAt;
     private Date loginAt;

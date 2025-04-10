@@ -8,13 +8,11 @@ import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "users")
 @Getter
 @Setter
 public class User extends BaseModel {
-    @Column( nullable=false, unique = true)
     private String email;
-    @Column( nullable=false )
     private String password;
     @ManyToMany
     private Set<Role> roles = new HashSet<>();

@@ -1,18 +1,18 @@
 package in.techarray.billbuddy.user_service.service;
 
+import org.springframework.stereotype.Service;
+
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.model.User;
-import in.techarray.billbuddy.user_service.repository.SessionRepository;
 import in.techarray.billbuddy.user_service.repository.UserRepository;
 
+@Service
 public class AuthService {
 
     private UserRepository userRepository;
-    private SessionRepository sessionRepository;
 
-    public AuthService(UserRepository userRepository, SessionRepository sessionRepository) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.sessionRepository = sessionRepository;
     }
 
     public UserDto signUp(String email, String password) {  
