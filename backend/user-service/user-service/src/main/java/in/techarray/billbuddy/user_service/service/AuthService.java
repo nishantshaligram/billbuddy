@@ -50,7 +50,7 @@ public class AuthService {
             return null; // TODO: if password is incorrect throw password mismatch exception.
         }
 
-        String token = RandomStringUtils.secureStrong().next(30);
+        String token = RandomStringUtils.secureStrong().nextAlphanumeric(30);
 
         Session session = new Session();
         session.setSessionStatus(SessionStatus.ACTIVE);
