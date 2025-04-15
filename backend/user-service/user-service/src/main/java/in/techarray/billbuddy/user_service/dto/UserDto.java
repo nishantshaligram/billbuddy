@@ -15,9 +15,9 @@ public class UserDto {
     private Set<Role> roles = new HashSet<>();
 
     public static UserDto from(User user) {
-        UserDto UserDto = new UserDto();
-        UserDto.setEmail(user.getEmail());
-        UserDto.setRoles(user.getRoles());
-        return UserDto;
+        UserDto userDto = new UserDto();
+        userDto.setEmail(user.getEmail());
+        userDto.setRoles(user.getRoles());
+        return userDto;
     }
 }

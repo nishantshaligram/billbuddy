@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import in.techarray.billbuddy.user_service.dto.LoginRequestDto;
 import in.techarray.billbuddy.user_service.dto.SignUpRequestDto;
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.service.AuthService;
@@ -24,4 +25,8 @@ public class AuthController {
         return new ResponseEntity<>(UserDto, HttpStatus.OK);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDto request) {
+        return authService.login(request.getEmail(), request.getPassword());
+    }
 }
