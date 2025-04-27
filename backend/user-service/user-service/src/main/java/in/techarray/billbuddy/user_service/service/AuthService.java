@@ -1,8 +1,13 @@
 package in.techarray.billbuddy.user_service.service;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.crypto.SecretKey;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +25,8 @@ import in.techarray.billbuddy.user_service.model.SessionStatus;
 import in.techarray.billbuddy.user_service.model.User;
 import in.techarray.billbuddy.user_service.repository.SessionRepository;
 import in.techarray.billbuddy.user_service.repository.UserRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.MacAlgorithm;
 
 @Service
 public class AuthService {
@@ -61,7 +68,18 @@ public class AuthService {
             throw new InvalidCredentialsException( "Invalid credentials" );
         }
         // generate token
-        String token = RandomStringUtils.secureStrong().nextAlphanumeric(30);
+        MacAlgorithm algorithm = Jwts.SIG.HS256;
+        SecretKey key = algorithm.key().build();
+        Map<String, Object> claims = new HashMap<>();
+        claims.put( "email", user.getEmail());
+        claims.put( "roles", user.getRoles() );
+        claims.put( "createdAt", new Date() );
+        claims.put( "expiryAt", new Date( LocalDate.now().plusDays(3).toEpochDay() ) );
+
+        String token = Jwts.builder()
+                .claims(claims)
+                .signWith(key, algorithm)
+                .compact();
         // Create session
         Session session = new Session();
         session.setSessionStatus(SessionStatus.ACTIVE);
@@ -73,9 +91,8 @@ public class AuthService {
         UserDto userDto = UserEntityDtoMapper.getUserDtoFromUserEntity(user);
         // Set headers
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.SET_COOKIE, token);
-        ResponseEntity<UserDto> response = new ResponseEntity<>(userDto, headers, HttpStatus.OK);
-        return response;
+        headers.add(HttpHeaders.SET_COOKIE,  token);
+        return new ResponseEntity<>(userDto, headers, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> logout( Long userId, String token ){
