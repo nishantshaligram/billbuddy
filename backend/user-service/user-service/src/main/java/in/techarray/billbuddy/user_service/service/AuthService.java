@@ -9,13 +9,11 @@ import java.util.Optional;
 
 import javax.crypto.SecretKey;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
 
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.exception.InvalidCredentialsException;
@@ -96,7 +94,6 @@ public class AuthService {
         return new ResponseEntity<>(userDto, headers, HttpStatus.OK);
     }
 
-    @PatchMapping("/logout")
     public ResponseEntity<Void> logout( Long userId, String token ){
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
 
