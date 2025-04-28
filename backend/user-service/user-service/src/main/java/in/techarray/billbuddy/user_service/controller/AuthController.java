@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import in.techarray.billbuddy.user_service.dto.LoginRequestDto;
 import in.techarray.billbuddy.user_service.dto.SignUpRequestDto;
 import in.techarray.billbuddy.user_service.dto.UserDto;
+import in.techarray.billbuddy.user_service.dto.ValidateTokenRequestDto;
 import in.techarray.billbuddy.user_service.model.Session;
+import in.techarray.billbuddy.user_service.model.SessionStatus;
 import in.techarray.billbuddy.user_service.service.AuthService;
 
 @RestController
@@ -40,6 +42,12 @@ public class AuthController {
 
     @PostMapping("/logout/{id}")
     public ResponseEntity<Void> logout(@PathVariable("id") Long userId, @RequestHeader("token") String token) {
-        return authService.logout( userId, token );
+        return authService.logout( token, userId );
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<SessionStatus> validateToken(@RequestBody ValidateTokenRequestDto request ){
+        SessionStatus sessionStatus = authService.validate( request.getToken(), request.getUserId() );
+        return new ResponseEntity<>( sessionStatus, HttpStatus.OK );
     }
 }

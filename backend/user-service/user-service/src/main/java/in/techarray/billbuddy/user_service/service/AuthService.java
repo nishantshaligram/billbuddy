@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.exception.InvalidCredentialsException;
+import in.techarray.billbuddy.user_service.exception.InvalidTokenException;
 import in.techarray.billbuddy.user_service.exception.UserNotFoundException;
 import in.techarray.billbuddy.user_service.mapper.UserEntityDtoMapper;
 import in.techarray.billbuddy.user_service.model.Session;
@@ -94,7 +95,7 @@ public class AuthService {
         return new ResponseEntity<>(userDto, headers, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> logout( Long userId, String token ){
+    public ResponseEntity<Void> logout( String token, Long userId ){
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
 
         if(sessionOptional.isEmpty()){
@@ -105,5 +106,13 @@ public class AuthService {
         session.setSessionStatus(SessionStatus.ENDED);
         sessionRepository.save(session);
         return ResponseEntity.ok().build();
+    }
+
+    public SessionStatus validate(String token, Long userId) {
+        Optional<Session> sessOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
+        if( sessOptional.isEmpty() || sessOptional.get().getSessionStatus().equals(SessionStatus.ENDED) ){
+            throw new InvalidTokenException("token is invalid or expired");
+        }
+        return SessionStatus.ACTIVE;
     }
 }
