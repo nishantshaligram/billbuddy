@@ -21,7 +21,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String Description;
+    private String description;
     private Double amount;
     private Long createdByUserId;
     private SplitType splitType;
