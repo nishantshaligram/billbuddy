@@ -21,6 +21,7 @@ public class ExpenseSplit {
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
     private UUID id;
+    private UUID expenseId;
     private Long userId;
-    private Double amount;
+    private Double amountOwed;
 }

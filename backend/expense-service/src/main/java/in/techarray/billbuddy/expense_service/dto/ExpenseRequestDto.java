@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class ExpenseRequestDto {
     private String Description;
-    private Double amount;
+    private Double totalAmount;
     private LocalDate date;
     private Long createdByUserId;
     private List<Long> participantUserIds;

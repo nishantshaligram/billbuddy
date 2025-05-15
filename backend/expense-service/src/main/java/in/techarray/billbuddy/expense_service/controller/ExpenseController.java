@@ -29,7 +29,7 @@ public class ExpenseController {
 
     @PostMapping("")
     public ResponseEntity<Expense> createExpense( @RequestBody ExpenseRequestDto expenseRequestDto ) {
-        Expense expense = expenseService.createExpense(expenseRequestDto);
+        Expense expense = expenseService.createExpenseWithSplits(expenseRequestDto);
         return ResponseEntity.ok(expense);
     }
     
