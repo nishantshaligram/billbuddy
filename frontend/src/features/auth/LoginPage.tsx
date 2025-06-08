@@ -12,7 +12,7 @@ function LoginPage() {
   const onSubmit = async (data: any) => {
     try {
       const result = await login(data);
-      dispatch(loginSuccess({ user: result.user, token: result.token }));
+      dispatch(loginSuccess(result));
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed', error);

@@ -9,3 +9,8 @@ export const register = async (data: { email: string; password: string }) => {
   const response = await api.post('/auth/signup', data);
   return response.data;
 };
+
+export const getCurrentUser = async( userId: number ) => {
+  const response = await api.get( `/users/id=${userId}` );
+  return response.data;
+}
