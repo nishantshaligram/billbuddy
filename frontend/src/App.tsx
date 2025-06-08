@@ -11,6 +11,7 @@ import { setUser } from './features/auth/authSlice';
 import { store } from './store';
 
 function DashboardPage() {
+  console.log( 'user', store.getState().auth );
   return <div>Welcome to the Dashboard!</div>;
 }
 
@@ -19,6 +20,7 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
+      console.log( 'user', store.getState().auth );
       const userID = store.getState().auth.user?.id;
       const user = await getCurrentUser( userID );
       if (user) dispatch(setUser(user));
