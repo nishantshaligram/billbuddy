@@ -71,6 +71,7 @@ public class AuthService {
         MacAlgorithm algorithm = Jwts.SIG.HS256;
         SecretKey key = algorithm.key().build();
         Map<String, Object> claims = new HashMap<>();
+        claims.put( "userId", user.getId());
         claims.put( "email", user.getEmail());
         claims.put( "roles", user.getRoles() );
         claims.put( "createdAt", new Date() );
