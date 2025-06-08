@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
+import { Button } from '@/components/ui/button';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -9,14 +10,11 @@ function Navbar() {
   };
 
   return (
-    <header className="h-16 border-b px-4 flex items-center justify-between bg-white shadow-sm">
-      <div className="font-semibold">Dashboard</div>
-      <button
-        onClick={handleLogout}
-        className="text-sm px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600"
-      >
+    <header className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
+      <div className="font-semibold text-lg tracking-tight text-primary">Dashboard</div>
+      <Button variant="outline" onClick={handleLogout}>
         Logout
-      </button>
+      </Button>
     </header>
   );
 }
