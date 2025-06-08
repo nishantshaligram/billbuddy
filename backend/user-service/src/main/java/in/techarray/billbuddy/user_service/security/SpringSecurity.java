@@ -39,6 +39,7 @@ public class SpringSecurity {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/auth/**", config);
+        source.registerCorsConfiguration( "/users/**", config);
         return source;
     }
 
