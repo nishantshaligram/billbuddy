@@ -7,6 +7,7 @@ import in.techarray.billbuddy.expense_service.model.Expense;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
 import in.techarray.billbuddy.expense_service.repository.ExpenseRepository;
 import in.techarray.billbuddy.expense_service.repository.ExpenseSplitRepository;
+import in.techarray.billbuddy.expense_service.strategy.EqualSplitStrategy;
 
 public class ExpenseService {
     private ExpenseRepository expenseRepository;
@@ -28,13 +29,8 @@ public class ExpenseService {
 
         switch( expenseRequestDto.getSplitType() ){
             case EQUAL:
-                Double splitAmount = expenseRequestDto.getTotalAmount() / expenseRequestDto.getParticipantUserIds().size();
-                List<ExpenseSplit> expenseSplits = expenseRequestDto.getParticipantUserIds().stream()
-                    .map( userId -> ExpenseSplit.builder()
-                        .expenseId( savedExpense.getId() )
-                        .userId( userId )
-                        .amountOwed(splitAmount)
-                        .build()).toList();
+                EqualSplitStrategy equalSplitStrategy = new EqualSplitStrategy();
+                List<ExpenseSplit> expenseSplits = equalSplitStrategy.calculateSplits( savedExpense.getId(), expenseRequestDto);
                 expenseSplitRepository.saveAll( expenseSplits );
                 break;
             default:
