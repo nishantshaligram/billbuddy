@@ -2,6 +2,7 @@ package in.techarray.billbuddy.expense_service.dto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import in.techarray.billbuddy.expense_service.model.SplitType;
@@ -15,4 +16,7 @@ public class ExpenseRequestDto {
     private UUID createdByUserId;
     private List<UUID> participantUserIds;
     private SplitType splitType;
+    private Map<UUID, Double> exactAmounts;
+    private Map<UUID, Double> percentageSplits;
+    private Map<UUID, Integer> shareSplits;
 }

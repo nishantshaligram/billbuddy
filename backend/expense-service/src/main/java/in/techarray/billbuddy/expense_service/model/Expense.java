@@ -30,7 +30,4 @@ public class Expense {
     @Enumerated(EnumType.STRING)
     private SplitType splitType;
     private LocalDate date;
-    private Map<UUID, Double> exactAmounts;
-    private Map<UUID, Double> percentageSplits;
-    private Map<UUID, Integer> shareSplits;
 }
