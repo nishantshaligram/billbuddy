@@ -1,5 +1,7 @@
 package in.techarray.billbuddy.user_service.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,5 +15,5 @@ import lombok.Setter;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 }

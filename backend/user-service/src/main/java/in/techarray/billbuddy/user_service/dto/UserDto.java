@@ -2,6 +2,7 @@ package in.techarray.billbuddy.user_service.dto;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import in.techarray.billbuddy.user_service.model.Role;
 import in.techarray.billbuddy.user_service.model.User;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-    private Long id;
+    private UUID id;
     private String email;
     private Set<Role> roles = new HashSet<>();
 
