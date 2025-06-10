@@ -32,11 +32,5 @@ public class ExpenseController {
         Expense expense = expenseService.createExpenseWithSplits(expenseRequestDto);
         return ResponseEntity.ok(expense);
     }
-
-    public ResponseEntity<Map<String, String>> handleException(Exception e) {
-        Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", e.getMessage());
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
     
 }
