@@ -1,6 +1,7 @@
 package in.techarray.billbuddy.expense_service.model;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -25,8 +26,11 @@ public class Expense {
     private UUID id;
     private String description;
     private Double totalAmount;
-    private Long createdByUserId;
+    private UUID createdByUserId;
     @Enumerated(EnumType.STRING)
     private SplitType splitType;
     private LocalDate date;
+    private Map<UUID, Double> exactAmounts;
+    private Map<UUID, Double> percentageSplits;
+    private Map<UUID, Integer> shareSplits;
 }
