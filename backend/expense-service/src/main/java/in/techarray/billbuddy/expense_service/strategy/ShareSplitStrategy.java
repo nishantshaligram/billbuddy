@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
 
+@Component
 public class ShareSplitStrategy implements SplitStrategy {
 
     @Override
