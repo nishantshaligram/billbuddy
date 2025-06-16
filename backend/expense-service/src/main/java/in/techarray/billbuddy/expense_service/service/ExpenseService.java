@@ -9,7 +9,6 @@ import in.techarray.billbuddy.expense_service.model.Expense;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
 import in.techarray.billbuddy.expense_service.repository.ExpenseRepository;
 import in.techarray.billbuddy.expense_service.repository.ExpenseSplitRepository;
-import in.techarray.billbuddy.expense_service.strategy.EqualSplitStrategy;
 import in.techarray.billbuddy.expense_service.strategy.SplitStrategy;
 import in.techarray.billbuddy.expense_service.strategy.SplitStrategyFactory;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +37,7 @@ public class ExpenseService {
 
         SplitStrategy strategy = strategyFactory.getStrategy(expenseRequestDto.getSplitType());
         List<ExpenseSplit> splits = strategy.calculateSplits(savedExpense.getId(), expenseRequestDto);
+        expenseSplitRepository.saveAll(splits);
         return savedExpense;
     }
 
