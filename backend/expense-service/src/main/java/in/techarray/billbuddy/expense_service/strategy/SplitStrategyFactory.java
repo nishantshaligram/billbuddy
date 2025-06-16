@@ -1,6 +1,7 @@
 package in.techarray.billbuddy.expense_service.strategy;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +11,15 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 
 @Component
 public class SplitStrategyFactory {
-    private final Map<SplitType, SplitStrategy> strategyMap = new EnumMap<>(SplitType.class);
+    private final Map<SplitType, SplitStrategy> strategies;
 
     @Autowired
-    public SplitStrategyFactory(EqualSplitStrategy equal, ExactSplitStrategy exact, PercentageSplitStrategy percentage, ShareSplitStrategy share) {
-        strategyMap.put(SplitType.EQUAL, equal);
-        strategyMap.put(SplitType.EXACT, exact);
-        strategyMap.put(SplitType.PERCENTAGE, percentage);
-        strategyMap.put(SplitType.SHARE_BASED, share);
+    public SplitStrategyFactory(List<SplitStrategy> strategyList) {
+        strategies = new EnumMap<>(SplitType.class);
+        strategyList.forEach( s -> strategies.put(s.getType(), s) );
     }
 
-    public SplitStrategy getStrategy(SplitType type){
-        return strategyMap.get(type);
+    public SplitStrategy getStrategy(SplitType type) {
+        return strategies.get(type);
     }
 }
