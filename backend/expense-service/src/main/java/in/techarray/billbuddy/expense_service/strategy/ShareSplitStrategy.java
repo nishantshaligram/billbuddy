@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
+import in.techarray.billbuddy.expense_service.model.SplitType;
 
 @Component
 public class ShareSplitStrategy implements SplitStrategy {
@@ -22,6 +23,11 @@ public class ShareSplitStrategy implements SplitStrategy {
                 return new ExpenseSplit(null, expenseId, entry.getKey(), amount);
             }).collect(Collectors.toList());
         return expenseSplits;
+    }
+
+    @Override
+    public SplitType getType() {
+        return SplitType.SHARE_BASED;
     }
 
 }

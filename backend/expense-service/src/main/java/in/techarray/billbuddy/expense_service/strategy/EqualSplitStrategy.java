@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
+import in.techarray.billbuddy.expense_service.model.SplitType;
 
 @Component
 public class EqualSplitStrategy implements SplitStrategy {
@@ -21,6 +22,11 @@ public class EqualSplitStrategy implements SplitStrategy {
                 .amountOwed(splitAmount)
                 .build()).toList();
         return expenseSplits;
+    }
+
+    @Override
+    public SplitType getType() {
+        return SplitType.EQUAL;
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
+import in.techarray.billbuddy.expense_service.model.SplitType;
 
 @Component
 public class ExactSplitStrategy  implements SplitStrategy{
@@ -23,6 +24,11 @@ public class ExactSplitStrategy  implements SplitStrategy{
         List<ExpenseSplit> expenseSplits = expenseRequestDto.getExactAmounts().entrySet().stream()
             .map(entry -> new ExpenseSplit(null, expenseId, entry.getKey(), entry.getValue())).collect(Collectors.toList());
         return expenseSplits;
+    }
+
+    @Override
+    public SplitType getType() {
+        return SplitType.EXACT;
     }
 
 }
