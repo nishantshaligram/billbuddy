@@ -1,7 +1,6 @@
 package in.techarray.billbuddy.expense_service.model;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
