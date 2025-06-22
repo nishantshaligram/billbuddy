@@ -1,5 +1,7 @@
 package in.techarray.billbuddy.user_service.dto;
 
+import java.util.UUID;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class ValidateTokenRequestDto {
     private String token;
-    private Long userId;
+    private UUID userId;
 }

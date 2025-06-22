@@ -7,6 +7,8 @@ import in.techarray.billbuddy.user_service.dto.SetUserRoleRequestDTO;
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.service.UserService;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,13 +29,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserDetails(@PathVariable("id") Long id) {
+    public ResponseEntity<UserDto> getUserDetails(@PathVariable("id") UUID id) {
         UserDto UserDto = userService.getUserDetails(id);
         return new ResponseEntity<>(UserDto, HttpStatus.OK);
     }
     
     @PostMapping("/{id}/roles")
-    public ResponseEntity<UserDto> setUserRoles(@PathVariable("id") Long userId, @RequestBody SetUserRoleRequestDTO request){
+    public ResponseEntity<UserDto> setUserRoles(@PathVariable("id") UUID userId, @RequestBody SetUserRoleRequestDTO request){
         UserDto UserDto  = userService.setUserRole(userId, request.getRoleIds());
         return new ResponseEntity<>(UserDto, HttpStatus.OK);
     }

@@ -1,6 +1,7 @@
 package in.techarray.billbuddy.user_service.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout/{id}")
-    public ResponseEntity<Void> logout(@PathVariable("id") Long userId, @RequestHeader("token") String token) {
+    public ResponseEntity<Void> logout(@PathVariable("id") UUID userId, @RequestHeader("token") String token) {
         return authService.logout( token, userId );
     }
 

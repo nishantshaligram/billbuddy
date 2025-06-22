@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.crypto.SecretKey;
 
@@ -96,8 +97,8 @@ public class AuthService {
         return new ResponseEntity<>(userDto, headers, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> logout( String token, Long userId ){
-        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
+    public ResponseEntity<Void> logout( String token, UUID userId ){
+        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_UUID(token, userId);
 
         if(sessionOptional.isEmpty()){
             return null; // TODO: Throw proper error for session not found
@@ -109,8 +110,8 @@ public class AuthService {
         return ResponseEntity.ok().build();
     }
 
-    public SessionStatus validate(String token, Long userId) {
-        Optional<Session> sessOptional = sessionRepository.findByTokenAndUser_Id(token, userId);
+    public SessionStatus validate(String token, UUID userId) {
+        Optional<Session> sessOptional = sessionRepository.findByTokenAndUser_UUID(token, userId);
         if( sessOptional.isEmpty() || sessOptional.get().getSessionStatus().equals(SessionStatus.ENDED) ){
             throw new InvalidTokenException("token is invalid or expired");
         }

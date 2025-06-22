@@ -3,6 +3,7 @@ package in.techarray.billbuddy.user_service.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-    public UserDto getUserDetails( Long ID ) {
+    public UserDto getUserDetails( UUID ID ) {
         Optional<User> userOptional = userRepository.findById(ID);
 
         if( userOptional.isEmpty() ) {
@@ -33,7 +34,7 @@ public class UserService {
         return UserDto.from(userOptional.get());
     }
 
-    public UserDto setUserRole( Long userId, List<Long> roleIds ) {
+    public UserDto setUserRole( UUID userId, List<UUID> roleIds ) {
         Optional<User> userOptional = userRepository.findById( userId );
         Set<Role> roles = roleRepository.findAllByIdIn( roleIds ); 
 
