@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import in.techarray.billbuddy.user_service.dto.UserDto;
 import in.techarray.billbuddy.user_service.exception.InvalidCredentialsException;
 import in.techarray.billbuddy.user_service.exception.InvalidTokenException;
+import in.techarray.billbuddy.user_service.exception.SessionNotFoundException;
 import in.techarray.billbuddy.user_service.exception.UserNotFoundException;
 import in.techarray.billbuddy.user_service.mapper.UserEntityDtoMapper;
 import in.techarray.billbuddy.user_service.model.Session;
@@ -101,7 +102,7 @@ public class AuthService {
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_UUID(token, userId);
 
         if(sessionOptional.isEmpty()){
-            return null; // TODO: Throw proper error for session not found
+            throw new SessionNotFoundException("Session not found");
         }
 
         Session session = sessionOptional.get();
