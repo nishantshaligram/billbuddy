@@ -14,7 +14,7 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 public class ExactSplitStrategy  implements SplitStrategy{
 
     @Override
-    public List<ExpenseSplit> calculateSplits(UUID expenseId, ExpenseRequestDto expenseRequestDto) {
+    public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
         Double total = expenseRequestDto.getExactAmounts().values().stream().mapToDouble(
             Double::doubleValue).sum();
         if(Math.abs(total-expenseRequestDto.getTotalAmount()) > 0.01){
@@ -22,7 +22,10 @@ public class ExactSplitStrategy  implements SplitStrategy{
         }
 
         List<ExpenseSplit> expenseSplits = expenseRequestDto.getExactAmounts().entrySet().stream()
-            .map(entry -> new ExpenseSplit(null, expenseId, entry.getKey(), entry.getValue())).collect(Collectors.toList());
+            .map(entry -> ExpenseSplit.builder()
+                .userId(entry.getKey())
+                .amountOwed(entry.getValue())
+                .build()).collect(Collectors.toList());
         return expenseSplits;
     }
 

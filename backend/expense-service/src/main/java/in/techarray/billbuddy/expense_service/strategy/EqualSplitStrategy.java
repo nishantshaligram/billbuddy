@@ -13,11 +13,10 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 public class EqualSplitStrategy implements SplitStrategy {
 
     @Override
-    public List<ExpenseSplit> calculateSplits(UUID expenseId, ExpenseRequestDto expenseRequestDto) {
+    public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
         Double splitAmount = expenseRequestDto.getTotalAmount() / expenseRequestDto.getParticipantUserIds().size();
         List<ExpenseSplit> expenseSplits = expenseRequestDto.getParticipantUserIds().stream()
             .map( userId -> ExpenseSplit.builder()
-                .expenseId(expenseId)
                 .userId(userId)
                 .amountOwed(splitAmount)
                 .build()).toList();

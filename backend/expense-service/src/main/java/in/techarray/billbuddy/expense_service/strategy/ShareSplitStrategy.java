@@ -14,13 +14,16 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 public class ShareSplitStrategy implements SplitStrategy {
 
     @Override
-    public List<ExpenseSplit> calculateSplits(UUID expenseId, ExpenseRequestDto expenseRequestDto) {
+    public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
         Integer totalShares = expenseRequestDto.getShareSplits().values().stream()
             .mapToInt(Integer::intValue).sum();
         List<ExpenseSplit> expenseSplits = expenseRequestDto.getShareSplits().entrySet().stream()
             .map( entry -> {
                 Double amount = (Double.valueOf(entry.getValue()) / totalShares) * expenseRequestDto.getTotalAmount();
-                return new ExpenseSplit(null, expenseId, entry.getKey(), amount);
+                return ExpenseSplit.builder()
+                    .userId(entry.getKey())
+                    .amountOwed(amount)
+                    .build();
             }).collect(Collectors.toList());
         return expenseSplits;
     }

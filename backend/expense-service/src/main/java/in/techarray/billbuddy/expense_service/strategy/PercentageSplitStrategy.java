@@ -14,7 +14,7 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 public class PercentageSplitStrategy implements SplitStrategy{
 
     @Override
-    public List<ExpenseSplit> calculateSplits(UUID expenseId, ExpenseRequestDto expenseRequestDto) {
+    public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
         Double totalPercent = expenseRequestDto.getPercentageSplits().values().stream()
             .mapToDouble(Double::doubleValue).sum();
         if( Math.abs(totalPercent - 100.0) > 0.01 ){
@@ -23,7 +23,10 @@ public class PercentageSplitStrategy implements SplitStrategy{
         List<ExpenseSplit> expenseSplits = expenseRequestDto.getPercentageSplits().entrySet().stream()
             .map( entry -> {
                 Double amount = entry.getValue() / 100.0 * expenseRequestDto.getTotalAmount();
-                return new ExpenseSplit(null, expenseId, entry.getKey(), amount);
+                return ExpenseSplit.builder()
+                    .userId(entry.getKey())
+                    .amountOwed(amount)
+                    .build();
             } ).collect(Collectors.toList());
         return expenseSplits;
     }

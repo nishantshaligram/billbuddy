@@ -9,5 +9,5 @@ import in.techarray.billbuddy.expense_service.model.SplitType;
 
 public interface SplitStrategy {
     SplitType getType();
-    List<ExpenseSplit> calculateSplits( UUID expenseId, ExpenseRequestDto expenseRequestDto );
+    List<ExpenseSplit> calculateSplits( ExpenseRequestDto expenseRequestDto );
 }
