@@ -29,7 +29,7 @@ public class ExactSplitStrategyTest {
             user2, 80.0
         ));
 
-        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto);
+        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
 
         assertEquals(2, expenseSplits.size());
         assertTrue(expenseSplits.stream()
@@ -56,6 +56,6 @@ public class ExactSplitStrategyTest {
             user2, 60.0
         ));
 
-        assertThrows(IllegalArgumentException.class, () -> strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto));
+        assertThrows(IllegalArgumentException.class, () -> strategy.calculateSplits(expenseRequestDto));
     }
 }

@@ -1,7 +1,6 @@
 package in.techarray.billbuddy.expense_service.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import in.techarray.billbuddy.expense_service.exception.ExpenseNotFoundException
 import in.techarray.billbuddy.expense_service.model.Expense;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
 import in.techarray.billbuddy.expense_service.repository.ExpenseRepository;
-import in.techarray.billbuddy.expense_service.repository.ExpenseSplitRepository;
 import in.techarray.billbuddy.expense_service.strategy.SplitStrategy;
 import in.techarray.billbuddy.expense_service.strategy.SplitStrategyFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService{
-    private ExpenseRepository expenseRepository;
-    private ExpenseSplitRepository expenseSplitRepository;
-    private SplitStrategyFactory strategyFactory;
-
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository) {
-        this.expenseRepository = expenseRepository;
-    }
+    private final ExpenseRepository expenseRepository;
+    private final SplitStrategyFactory strategyFactory;
 
     public Expense createExpenseWithSplits( ExpenseRequestDto expenseRequestDto ) {
 

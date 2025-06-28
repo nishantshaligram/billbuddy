@@ -20,7 +20,7 @@ public class EqualSplitStrategyTest {
             UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()
         ));
         
-        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto);
+        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
 
         assertEquals(3, expenseSplits.size());
         expenseSplits.forEach(split -> assertEquals( 100.0/3, split.getAmountOwed(), 0.001));
@@ -33,7 +33,7 @@ public class EqualSplitStrategyTest {
         expenseRequestDto.setTotalAmount(75.0);
         expenseRequestDto.setParticipantUserIds(List.of(userID));
 
-        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(userID, expenseRequestDto);
+        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
         
         assertEquals(1, expenseSplits.size());
         assertEquals(75.0, expenseSplits.get(0).getAmountOwed(), 0.001);

@@ -11,10 +11,13 @@ import in.techarray.billbuddy.expense_service.service.ExpenseServiceImpl;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -39,5 +42,17 @@ public class ExpenseController {
     public ResponseEntity<Expense> getExpense( @PathVariable UUID id ){
         Expense expense = expenseService.getExpenseById( id );
         return ResponseEntity.ok(expense);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Expense> updateExpense(@PathVariable UUID id, @RequestBody ExpenseRequestDto expenseRequestDto) {
+       Expense updatedExpense = expenseService.updateExpense(id, expenseRequestDto);
+        return ResponseEntity.ok(updatedExpense);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteExpense(@PathVariable UUID id){
+        expenseService.deleteExpense(id);
+        return ResponseEntity.noContent().build();
     }
 }

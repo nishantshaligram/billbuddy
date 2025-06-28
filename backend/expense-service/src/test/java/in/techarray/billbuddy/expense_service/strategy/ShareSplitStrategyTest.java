@@ -28,7 +28,7 @@ public class ShareSplitStrategyTest {
             user2, 4
         ));
         
-        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto);
+        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
 
         assertEquals(2, expenseSplits.size());
         assertTrue(expenseSplits.stream().anyMatch( split -> split.getUserId().equals(user1) &&

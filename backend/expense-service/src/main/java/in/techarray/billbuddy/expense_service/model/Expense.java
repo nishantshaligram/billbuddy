@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.context.annotation.Lazy;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,6 +35,6 @@ public class Expense {
     private SplitType splitType;
     private LocalDate date;
     @Lazy
-    @OneToMany
+    @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExpenseSplit> expenseSplits;
 }

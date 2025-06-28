@@ -29,7 +29,7 @@ public class PercentageSplitStrategyTest {
             user2, 75.0
         ));
 
-        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto);
+        List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
 
         assertEquals(2, expenseSplits.size());
 
@@ -58,6 +58,6 @@ public class PercentageSplitStrategyTest {
             user2, 40.0
         ));
 
-        assertThrows(IllegalArgumentException.class, () -> strategy.calculateSplits(UUID.randomUUID(), expenseRequestDto));
+        assertThrows(IllegalArgumentException.class, () -> strategy.calculateSplits( expenseRequestDto));
     }
 }
