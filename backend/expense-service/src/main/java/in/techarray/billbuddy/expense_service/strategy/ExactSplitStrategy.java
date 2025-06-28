@@ -14,13 +14,13 @@ public class ExactSplitStrategy  implements SplitStrategy{
 
     @Override
     public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
-        Double total = expenseRequestDto.getExactAmounts().values().stream().mapToDouble(
+        Double total = expenseRequestDto.getSplits().values().stream().mapToDouble(
             Double::doubleValue).sum();
         if(Math.abs(total-expenseRequestDto.getTotalAmount()) > 0.01){
             throw new IllegalArgumentException("Exact amounts must sum to total");
         }
 
-        List<ExpenseSplit> expenseSplits = expenseRequestDto.getExactAmounts().entrySet().stream()
+        List<ExpenseSplit> expenseSplits = expenseRequestDto.getSplits().entrySet().stream()
             .map(entry -> ExpenseSplit.builder()
                 .userId(entry.getKey())
                 .amountOwed(entry.getValue())

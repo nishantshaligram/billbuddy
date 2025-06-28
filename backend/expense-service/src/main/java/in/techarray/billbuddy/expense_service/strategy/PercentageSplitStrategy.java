@@ -14,12 +14,12 @@ public class PercentageSplitStrategy implements SplitStrategy{
 
     @Override
     public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
-        Double totalPercent = expenseRequestDto.getPercentageSplits().values().stream()
+        Double totalPercent = expenseRequestDto.getSplits().values().stream()
             .mapToDouble(Double::doubleValue).sum();
         if( Math.abs(totalPercent - 100.0) > 0.01 ){
             throw new IllegalArgumentException( "Percentages must sum to 100" );
         }
-        List<ExpenseSplit> expenseSplits = expenseRequestDto.getPercentageSplits().entrySet().stream()
+        List<ExpenseSplit> expenseSplits = expenseRequestDto.getSplits().entrySet().stream()
             .map( entry -> {
                 Double amount = entry.getValue() / 100.0 * expenseRequestDto.getTotalAmount();
                 return ExpenseSplit.builder()

@@ -14,11 +14,11 @@ public class ShareSplitStrategy implements SplitStrategy {
 
     @Override
     public List<ExpenseSplit> calculateSplits(ExpenseRequestDto expenseRequestDto) {
-        Integer totalShares = expenseRequestDto.getShareSplits().values().stream()
-            .mapToInt(Integer::intValue).sum();
-        List<ExpenseSplit> expenseSplits = expenseRequestDto.getShareSplits().entrySet().stream()
+        Double totalShares = expenseRequestDto.getSplits().values().stream()
+            .mapToDouble(Double::doubleValue).sum();
+        List<ExpenseSplit> expenseSplits = expenseRequestDto.getSplits().entrySet().stream()
             .map( entry -> {
-                Double amount = (Double.valueOf(entry.getValue()) / totalShares) * expenseRequestDto.getTotalAmount();
+                Double amount = (entry.getValue() / totalShares) * expenseRequestDto.getTotalAmount();
                 return ExpenseSplit.builder()
                     .userId(entry.getKey())
                     .amountOwed(amount)

@@ -16,7 +16,5 @@ public class ExpenseRequestDto {
     private UUID createdByUserId;
     private List<UUID> participantUserIds;
     private SplitType splitType;
-    private Map<UUID, Double> exactAmounts;
-    private Map<UUID, Double> percentageSplits;
-    private Map<UUID, Integer> shareSplits;
+    private Map<UUID, Double> splits;
 }
