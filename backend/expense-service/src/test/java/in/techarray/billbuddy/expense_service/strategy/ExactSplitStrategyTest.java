@@ -24,7 +24,7 @@ public class ExactSplitStrategyTest {
 
         ExpenseRequestDto expenseRequestDto = new ExpenseRequestDto();
         expenseRequestDto.setTotalAmount(120.0);
-        expenseRequestDto.setExactAmounts(Map.of(
+        expenseRequestDto.setSplits(Map.of(
             user1, 40.0,
             user2, 80.0
         ));
@@ -51,7 +51,7 @@ public class ExactSplitStrategyTest {
 
         ExpenseRequestDto expenseRequestDto = new ExpenseRequestDto();
         expenseRequestDto.setTotalAmount(100.0);
-        expenseRequestDto.setExactAmounts(Map.of(
+        expenseRequestDto.setSplits(Map.of(
             user1, 30.0,
             user2, 60.0
         ));

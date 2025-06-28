@@ -24,7 +24,7 @@ public class PercentageSplitStrategyTest {
 
         ExpenseRequestDto expenseRequestDto = new ExpenseRequestDto();
         expenseRequestDto.setTotalAmount(200.0);
-        expenseRequestDto.setPercentageSplits(Map.of(
+        expenseRequestDto.setSplits(Map.of(
             user1, 25.0,
             user2, 75.0
         ));
@@ -53,7 +53,7 @@ public class PercentageSplitStrategyTest {
 
         ExpenseRequestDto expenseRequestDto = new ExpenseRequestDto();
         expenseRequestDto.setTotalAmount(200.0);
-        expenseRequestDto.setPercentageSplits(Map.of(
+        expenseRequestDto.setSplits(Map.of(
             user1, 40.0,
             user2, 40.0
         ));

@@ -33,6 +33,11 @@ public class ExpenseServiceImpl implements ExpenseService{
             .splitType(expenseRequestDto.getSplitType())
             .expenseSplits(splits)
             .build();
+        
+        for (ExpenseSplit split : splits) {
+            split.setExpense(expense);
+        }
+
         Expense savedExpense = expenseRepository.save(expense);
 
         return savedExpense;
@@ -56,6 +61,10 @@ public class ExpenseServiceImpl implements ExpenseService{
         expense.setTotalAmount(expenseRequestDto.getTotalAmount());
         expense.setSplitType(expenseRequestDto.getSplitType());
         expense.setExpenseSplits(updatedSplits);
+
+        for (ExpenseSplit split : updatedSplits) {
+            split.setExpense(expense);
+        }
 
         return expenseRepository.save(expense);
     }

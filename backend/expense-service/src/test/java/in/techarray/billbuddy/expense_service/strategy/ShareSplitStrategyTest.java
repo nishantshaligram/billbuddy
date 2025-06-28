@@ -23,9 +23,9 @@ public class ShareSplitStrategyTest {
 
         ExpenseRequestDto expenseRequestDto = new ExpenseRequestDto();
         expenseRequestDto.setTotalAmount(180.0);
-        expenseRequestDto.setShareSplits(Map.of(
-            user1, 2,
-            user2, 4
+        expenseRequestDto.setSplits(Map.of(
+            user1, 2.0,
+            user2, 4.0
         ));
         
         List<ExpenseSplit> expenseSplits = strategy.calculateSplits(expenseRequestDto);
