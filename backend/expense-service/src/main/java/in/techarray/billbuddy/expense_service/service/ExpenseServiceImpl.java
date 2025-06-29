@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
+import in.techarray.billbuddy.expense_service.dto.UserExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.exception.ExpenseNotFoundException;
 import in.techarray.billbuddy.expense_service.model.Expense;
 import in.techarray.billbuddy.expense_service.model.ExpenseSplit;
@@ -20,6 +21,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     private final ExpenseRepository expenseRepository;
     private final SplitStrategyFactory strategyFactory;
 
+    @Override
     public Expense createExpenseWithSplits( ExpenseRequestDto expenseRequestDto ) {
 
         SplitStrategy strategy = strategyFactory.getStrategy(expenseRequestDto.getSplitType());
@@ -43,6 +45,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         return savedExpense;
     }
 
+    @Override
     public Expense getExpenseById( UUID id ){
         return expenseRepository.findById(id)
             .orElseThrow( () -> new ExpenseNotFoundException("Expense not found: " + id) );
@@ -75,5 +78,10 @@ public class ExpenseServiceImpl implements ExpenseService{
         Expense expense = expenseRepository.findById(id)
             .orElseThrow( () -> new ExpenseNotFoundException("Expense not found: " + id) );
         expenseRepository.delete(expense);
+    }
+
+    @Override
+    public List<Expense> getAllExpensesByUser(UserExpenseRequestDto userExpenseRequestDto) {
+        return expenseRepository.findByCreatedByUserId(userExpenseRequestDto.getUserId());
     }
 }

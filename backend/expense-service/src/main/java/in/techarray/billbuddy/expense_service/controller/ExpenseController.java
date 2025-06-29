@@ -4,10 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.techarray.billbuddy.expense_service.dto.ExpenseRequestDto;
+import in.techarray.billbuddy.expense_service.dto.UserExpenseRequestDto;
 import in.techarray.billbuddy.expense_service.model.Expense;
 import in.techarray.billbuddy.expense_service.service.ExpenseService;
 import in.techarray.billbuddy.expense_service.service.ExpenseServiceImpl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -36,6 +40,12 @@ public class ExpenseController {
     public ResponseEntity<Expense> createExpense( @RequestBody ExpenseRequestDto expenseRequestDto ) {
         Expense expense = expenseService.createExpenseWithSplits(expenseRequestDto);
         return ResponseEntity.ok(expense);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<Expense>> getAllExpensesByUser(@RequestBody UserExpenseRequestDto userExpenseRequestDto) {
+        List<Expense> userExpenses = expenseService.getAllExpensesByUser(userExpenseRequestDto);
+        return ResponseEntity.ok(userExpenses);
     }
     
     @GetMapping("/{id}")
