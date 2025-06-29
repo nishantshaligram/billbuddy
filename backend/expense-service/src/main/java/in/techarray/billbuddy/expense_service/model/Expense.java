@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.context.annotation.Lazy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,6 +37,7 @@ public class Expense {
     private SplitType splitType;
     private LocalDate date;
     @Lazy
+    @JsonBackReference
     @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExpenseSplit> expenseSplits;
 }

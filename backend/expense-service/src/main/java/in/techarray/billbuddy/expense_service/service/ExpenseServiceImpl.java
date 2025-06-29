@@ -54,16 +54,17 @@ public class ExpenseServiceImpl implements ExpenseService{
             .orElseThrow( () -> new ExpenseNotFoundException("Expense not found: " + id) );
 
         SplitStrategy strategy = strategyFactory.getStrategy(expenseRequestDto.getSplitType());
-        List<ExpenseSplit> updatedSplits = strategy.calculateSplits(expenseRequestDto);
+        List<ExpenseSplit> newSplits = strategy.calculateSplits(expenseRequestDto);
 
         expense.setDescription(expenseRequestDto.getDescription());
         expense.setDate(expenseRequestDto.getDate());
         expense.setTotalAmount(expenseRequestDto.getTotalAmount());
         expense.setSplitType(expenseRequestDto.getSplitType());
-        expense.setExpenseSplits(updatedSplits);
+        expense.getExpenseSplits().clear();
 
-        for (ExpenseSplit split : updatedSplits) {
+        for (ExpenseSplit split : newSplits) {
             split.setExpense(expense);
+            expense.getExpenseSplits().add(split);
         }
 
         return expenseRepository.save(expense);
