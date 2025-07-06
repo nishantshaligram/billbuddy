@@ -51,4 +51,10 @@ public class AuthController {
         SessionStatus sessionStatus = authService.validate( request.getToken(), request.getUserId() );
         return new ResponseEntity<>( sessionStatus, HttpStatus.OK );
     }
+    
+    @PostMapping("/validate/user")
+    public ResponseEntity<UserDto> validateUser(@RequestHeader("cookie") String token ){
+        UserDto userDto = authService.validateUser( token );
+        return new ResponseEntity<>( userDto, HttpStatus.OK );
+    }
 }

@@ -99,7 +99,7 @@ public class AuthService {
     }
 
     public ResponseEntity<Void> logout( String token, UUID userId ){
-        Optional<Session> sessionOptional = sessionRepository.findByTokenAndUser_UUID(token, userId);
+        Optional<Session> sessionOptional = sessionRepository.findTopByTokenAndUser_IdOrderByLoginAtDesc(token, userId);
 
         if(sessionOptional.isEmpty()){
             throw new SessionNotFoundException("Session not found");
@@ -112,10 +112,20 @@ public class AuthService {
     }
 
     public SessionStatus validate(String token, UUID userId) {
-        Optional<Session> sessOptional = sessionRepository.findByTokenAndUser_UUID(token, userId);
+        Optional<Session> sessOptional = sessionRepository.findTopByTokenAndUser_IdOrderByLoginAtDesc(token, userId);
         if( sessOptional.isEmpty() || sessOptional.get().getSessionStatus().equals(SessionStatus.ENDED) ){
             throw new InvalidTokenException("token is invalid or expired");
         }
         return SessionStatus.ACTIVE;
+    }
+
+    public UserDto validateUser(String token) {
+        Optional<Session> sessOptional = sessionRepository.findTopByTokenOrderByLoginAtDesc(token);
+        if( sessOptional.isEmpty() || sessOptional.get().getSessionStatus().equals(SessionStatus.ENDED) ){
+            throw new InvalidTokenException("token is invalid or expired");
+        }
+        User user = sessOptional.get().getUser();
+        UserDto userDto = UserEntityDtoMapper.getUserDtoFromUserEntity(user);
+        return userDto;
     }
 }

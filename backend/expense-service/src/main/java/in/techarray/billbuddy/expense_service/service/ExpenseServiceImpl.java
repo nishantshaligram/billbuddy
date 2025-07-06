@@ -81,7 +81,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public List<Expense> getAllExpensesByUser(UserExpenseRequestDto userExpenseRequestDto) {
-        return expenseRepository.findByCreatedByUserId(userExpenseRequestDto.getUserId());
+    public List<Expense> getAllExpensesByUser(UUID userId) {
+        return expenseRepository.findByCreatedByUserId(userId);
     }
 }

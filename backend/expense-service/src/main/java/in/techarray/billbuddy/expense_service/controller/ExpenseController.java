@@ -42,9 +42,9 @@ public class ExpenseController {
         return ResponseEntity.ok(expense);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<Expense>> getAllExpensesByUser(@RequestBody UserExpenseRequestDto userExpenseRequestDto) {
-        List<Expense> userExpenses = expenseService.getAllExpensesByUser(userExpenseRequestDto);
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Expense>> getAllExpensesByUser(@PathVariable("id") UUID userID) {
+        List<Expense> userExpenses = expenseService.getAllExpensesByUser(userID);
         return ResponseEntity.ok(userExpenses);
     }
     

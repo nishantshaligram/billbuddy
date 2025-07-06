@@ -13,5 +13,5 @@ public interface ExpenseService {
     public Expense getExpenseById(UUID id);
     public Expense updateExpense(UUID id, ExpenseRequestDto expenseRequestDto);
     void deleteExpense(UUID id);
-    public List<Expense> getAllExpensesByUser(UserExpenseRequestDto userExpenseRequestDto);
+    public List<Expense> getAllExpensesByUser(UUID userId);
 }
