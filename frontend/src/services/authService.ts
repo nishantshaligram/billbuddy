@@ -1,16 +1,16 @@
-import api from './api';
+import {authApi} from './api';
 
 export const login = async (credentials: { email: string; password: string }) => {
-  const response = await api.post('/auth/login', credentials);
+  const response = await authApi.post('/auth/login', credentials);
   return response.data;
 };
 
 export const register = async (data: { email: string; password: string }) => {
-  const response = await api.post('/auth/signup', data);
+  const response = await authApi.post('/auth/signup', data);
   return response.data;
 };
 
-export const getCurrentUser = async( userId: number ) => {
-  const response = await api.get( `/users/${userId}` );
+export const getCurrentUser = async() => {
+  const response = await authApi.post( `/auth/validate/user` );
   return response.data;
 }
