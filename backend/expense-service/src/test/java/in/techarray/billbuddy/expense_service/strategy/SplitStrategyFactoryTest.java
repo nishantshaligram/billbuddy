@@ -1,7 +1,7 @@
 package in.techarray.billbuddy.expense_service.strategy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -42,7 +42,8 @@ public class SplitStrategyFactoryTest {
     }
 
     @Test
-    void shouldReturnNullForUnknownStrategy() {
-        assertNull(factory.getStrategy(SplitType.SHARE_BASED)); // Assuming SHARE isn't registered
+    void shouldThrowForUnknownStrategy() {
+        assertThrows(IllegalArgumentException.class,
+                () -> factory.getStrategy(SplitType.SHARE_BASED));
     }
 }
