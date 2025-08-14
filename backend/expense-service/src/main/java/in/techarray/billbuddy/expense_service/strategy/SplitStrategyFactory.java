@@ -20,6 +20,10 @@ public class SplitStrategyFactory {
     }
 
     public SplitStrategy getStrategy(SplitType type) {
-        return strategies.get(type);
+        SplitStrategy strategy = strategies.get(type);
+        if (strategy == null) {
+            throw new IllegalArgumentException("Unknown split type: " + type);
+        }
+        return strategy;
     }
 }
