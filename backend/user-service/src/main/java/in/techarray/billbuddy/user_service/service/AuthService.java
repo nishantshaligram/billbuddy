@@ -52,7 +52,7 @@ public class AuthService {
     public UserDto signUp(String email, String password) {  
         User user = new User();
         user.setEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(password)); // In a real application, you should hash the password
+        user.setPassword(bCryptPasswordEncoder.encode(password)); // Hash the password using BCryptPasswordEncoder
         userRepository.save(user);
         return UserDto.from(user); 
     }
