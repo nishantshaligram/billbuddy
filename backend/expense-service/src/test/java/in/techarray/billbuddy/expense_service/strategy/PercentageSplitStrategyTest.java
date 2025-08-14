@@ -33,17 +33,17 @@ public class PercentageSplitStrategyTest {
 
         assertEquals(2, expenseSplits.size());
 
-        // Check for the split for user2 with 25.0% = 50
+        // Check for the split for user1 with 25.0% = 50.0
         assertTrue(expenseSplits.stream()
                         .anyMatch(split -> split.getUserId().equals(user1) &&
                                            Math.abs(split.getAmountOwed() - 50.0) < 0.001),
-                "Expected split for user1 with amount 40.0 not found.");
+                "Expected split for user1 with amount 50.0 not found.");
 
-        // Check for the split for user2 with 75.0% = 150
+        // Check for the split for user2 with 75.0% = 150.0
         assertTrue(expenseSplits.stream()
                         .anyMatch(split -> split.getUserId().equals(user2) &&
                                            Math.abs(split.getAmountOwed() - 150.0) < 0.001),
-                "Expected split for user2 with amount 80.0 not found.");
+                "Expected split for user2 with amount 150.0 not found.");
     }
 
     @Test
