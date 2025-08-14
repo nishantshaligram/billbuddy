@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class ExpenseRequestDto {
-    private String Description;
+    private String description;
     private Double totalAmount;
     private LocalDate date;
     private UUID createdByUserId;
